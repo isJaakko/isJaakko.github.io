@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="关于前后端路由区别：浅谈前后端路由与前后端渲染 目前，我在搭建一个包含前后端全套打包方案的工程时，碰到了一些问题，也学到了很多，在此记录下来，防止遗忘。 项目地址 准备初始化工程npm init -y 我这里使用 koa 来搭建服务器，之后会尝试用原生 nodejs 去实现一遍。 安装 koanpm install koa --save 搭建基本服务器新建我们的服务器文件并写入以下内容： serv">
+<meta name="keywords" content="koa,nodejs,服务器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 koa2 搭建服务器">
+<meta property="og:url" content="http://yoursite.com/2018/12/19/使用 koa2 搭建服务器/index.html">
+<meta property="og:site_name" content="Jaakko">
+<meta property="og:description" content="关于前后端路由区别：浅谈前后端路由与前后端渲染 目前，我在搭建一个包含前后端全套打包方案的工程时，碰到了一些问题，也学到了很多，在此记录下来，防止遗忘。 项目地址 准备初始化工程npm init -y 我这里使用 koa 来搭建服务器，之后会尝试用原生 nodejs 去实现一遍。 安装 koanpm install koa --save 搭建基本服务器新建我们的服务器文件并写入以下内容： serv">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-02-15T08:29:06.740Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用 koa2 搭建服务器">
+<meta name="twitter:description" content="关于前后端路由区别：浅谈前后端路由与前后端渲染 目前，我在搭建一个包含前后端全套打包方案的工程时，碰到了一些问题，也学到了很多，在此记录下来，防止遗忘。 项目地址 准备初始化工程npm init -y 我这里使用 koa 来搭建服务器，之后会尝试用原生 nodejs 去实现一遍。 安装 koanpm install koa --save 搭建基本服务器新建我们的服务器文件并写入以下内容： serv">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/tech.png">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/tech.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/tech.png">
+          
+        
+    
+    <!-- title -->
+    <title>使用 koa2 搭建服务器</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Archies</a></li>
+         
+          <li><a href="/categories/">Categories</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/links/">Links</a></li>
+        
+      </ul>
+    </span>
+    <br>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2019/01/15/截取页面中ajax请求/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2018/12/10/webpack-react-antd-项目框架搭建/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2018/12/19/使用 koa2 搭建服务器/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2018/12/19/使用 koa2 搭建服务器/&text=使用 koa2 搭建服务器"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2018/12/19/使用 koa2 搭建服务器/&title=使用 koa2 搭建服务器"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2018/12/19/使用 koa2 搭建服务器/&is_video=false&description=使用 koa2 搭建服务器"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=使用 koa2 搭建服务器&body=Check out this article: http://yoursite.com/2018/12/19/使用 koa2 搭建服务器/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2018/12/19/使用 koa2 搭建服务器/&title=使用 koa2 搭建服务器"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2018/12/19/使用 koa2 搭建服务器/&title=使用 koa2 搭建服务器"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2018/12/19/使用 koa2 搭建服务器/&title=使用 koa2 搭建服务器"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2018/12/19/使用 koa2 搭建服务器/&title=使用 koa2 搭建服务器"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2018/12/19/使用 koa2 搭建服务器/&name=使用 koa2 搭建服务器&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#准备"><span class="toc-number">1.</span> <span class="toc-text">准备</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#初始化工程"><span class="toc-number">1.1.</span> <span class="toc-text">初始化工程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装-koa"><span class="toc-number">1.2.</span> <span class="toc-text">安装 koa</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#搭建基本服务器"><span class="toc-number">2.</span> <span class="toc-text">搭建基本服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#server-js"><span class="toc-number">2.0.1.</span> <span class="toc-text">server.js</span></a></li></ol></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#静态资源访问"><span class="toc-number">3.</span> <span class="toc-text">静态资源访问</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装-koa-static"><span class="toc-number">3.1.</span> <span class="toc-text">安装 koa-static</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#server-js-1"><span class="toc-number">3.1.1.</span> <span class="toc-text">server.js</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#路由"><span class="toc-number">4.</span> <span class="toc-text">路由</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装"><span class="toc-number">4.1.</span> <span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#server-js-2"><span class="toc-number">4.1.1.</span> <span class="toc-text">server.js</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#区分前后端路由"><span class="toc-number">5.</span> <span class="toc-text">区分前后端路由</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#路由歧义"><span class="toc-number">5.1.</span> <span class="toc-text">路由歧义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#前端路由与前端渲染"><span class="toc-number">5.2.</span> <span class="toc-text">前端路由与前端渲染</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#服务端解决"><span class="toc-number">5.3.</span> <span class="toc-text">服务端解决</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#server-js-3"><span class="toc-number">5.3.1.</span> <span class="toc-text">server.js</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#优化"><span class="toc-number">6.</span> <span class="toc-text">优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#koa-static"><span class="toc-number">6.1.</span> <span class="toc-text">koa-static</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#server-js-4"><span class="toc-number">6.1.1.</span> <span class="toc-text">server.js</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">7.</span> <span class="toc-text">总结</span></a></li>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <!-- Highlight.js -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/railscasts.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        使用 koa2 搭建服务器
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">
+          
+          Jaakko
+          </span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2018-12-19T05:59:57.000Z" itemprop="datePublished">2018-12-19</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/koa/">koa</a>, <a class="tag-link" href="/tags/nodejs/">nodejs</a>, <a class="tag-link" href="/tags/服务器/">服务器</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>关于前后端路由区别：<a href="https://molunerfinn.com/fe-be-router-render/" target="_blank" rel="noopener">浅谈前后端路由与前后端渲染</a></p>
+<p>目前，我在搭建一个包含前后端全套打包方案的工程时，碰到了一些问题，也学到了很多，在此记录下来，防止遗忘。</p>
+<p><a href="https://github.com/isJaakko/node-server" target="_blank" rel="noopener">项目地址</a></p>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><h3 id="初始化工程"><a href="#初始化工程" class="headerlink" title="初始化工程"></a>初始化工程</h3><pre><code>npm init -y
+</code></pre><p>我这里使用 koa 来搭建服务器，之后会尝试用原生 nodejs 去实现一遍。</p>
+<h3 id="安装-koa"><a href="#安装-koa" class="headerlink" title="安装 koa"></a>安装 koa</h3><pre><code>npm install koa --save
+</code></pre><h2 id="搭建基本服务器"><a href="#搭建基本服务器" class="headerlink" title="搭建基本服务器"></a>搭建基本服务器</h2><p>新建我们的服务器文件并写入以下内容：</p>
+<h4 id="server-js"><a href="#server-js" class="headerlink" title="server.js"></a>server.js</h4><pre><code>const Koa = require(&#39;koa&#39;);
+const app = new Koa();
+
+const port = 3000;
+
+app.use(async (ctx, next) =&gt; {
+    ctx.body = &#39;hello world!&#39;;
+});
+
+app.listen(3000);
+console.log(`\nserver is start at port ${port}...\n`);
+</code></pre><blockquote>
+<ul>
+<li>app.use() 方法可以传入一个回调函数，所有请求都会经过 app.use 回调函数处理。这个回调函数也叫中间件，可以直接写在 app.use() 里，也可以拆分成一个独立函数传入 app.use()。</li>
+<li>ctx 是一个上下文对象，包含一次请求的所有信息，包括 response 和 request 对象。</li>
+<li>app.listen() 监听一个端口。</li>
+</ul>
+</blockquote>
+<p>现在我们打开浏览器输入地址 ‘localhost:3000’，就可以看到我们的 ‘hello world’ 了。</p>
+<h2 id="静态资源访问"><a href="#静态资源访问" class="headerlink" title="静态资源访问"></a>静态资源访问</h2><p>在单页应用中，我们希望前端去处理路由请求，即根据不同路由去渲染不同页面。当浏览器访问一个路径时，如果是前端路由，此时后端返回给前端的应该是 index.html，我们需要服务器支持这种请求。</p>
+<h3 id="安装-koa-static"><a href="#安装-koa-static" class="headerlink" title="安装 koa-static"></a>安装 koa-static</h3><pre><code>npm install koa-static --save
+</code></pre><h4 id="server-js-1"><a href="#server-js-1" class="headerlink" title="server.js"></a>server.js</h4><pre><code>const Koa = require(&#39;koa&#39;);
+const path = require(&#39;path&#39;);
+const serve = require(&#39;koa-static&#39;);
+const app = new Koa();
+
+const port = 3000;
+
+const main = serve(path.join(__dirname), &quot;dist&quot;);   // __dirname 指根目录
+app.use(main);
+
+app.listen(3000);
+console.log(`\nserver is start at port ${port}...\n`);
+</code></pre><blockquote>
+<p><strong>注意：</strong><br>这里有一个比较坑的地方，__dirname 是 nodejs 的一个变量，指的是根目录。我一直以为这个根目录指的是整个工程的根目录。<br>错！<br>这个根目录指的是被执行的文件所在的目录！<br>不一定是整个工程的的根目录！</p>
+</blockquote>
+<p>我当前的目录结构为</p>
+<pre><code>nodejs-server-demo
+├── backend
+│   ├── server.js
+│   dist
+│   ├── index.html
+│   └── bundle.js
+└── package.json
+</code></pre><p>根据我的目录结构，我的 server.js 中的 __dirname 指的就是 “/nodejs-server-demo/backend”，而不是 “/nodejs-server-demo”。</p>
+<p>我的 index.html 文件放在 ./dist 文件夹下，所以这里我要修改路径为：</p>
+<pre><code>const serve = serve(path.join(__dirname, &quot;../dist&quot;));
+</code></pre><p>现在，我们的服务器支持静态资源访问了，打开浏览器，输入 “localhost:3000” 和 “localhost:3000/bundle.js” 查看效果吧。</p>
+<blockquote>
+<p><strong>注意：</strong><br>我们给 koa-static 中间件传入了一个目录，koa-static 中间件默认返回该目录下的 “index.html” 文件并返回。<br>如果想验证，我们可以将 ‘app.use(main)’ 注释掉，来看看效果，我们会发现 “localhost” 将返回 ‘not found’。<br>证明我们的想法是正确的。</p>
+</blockquote>
+<h2 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h2><p>要实现路由 ，我们需要借助 “koa-router”。</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><pre><code>npm install koa-router --save
+</code></pre><h4 id="server-js-2"><a href="#server-js-2" class="headerlink" title="server.js"></a>server.js</h4><pre><code>const Koa = require(&#39;koa&#39;);
+const path = require(&#39;path&#39;);
+const serve = require(&#39;koa-static&#39;);
+const router = require(&#39;koa-router&#39;)(); // 注意 router 的引入方式
+const app = new Koa();
+
+const port = 3000;
+
+app.use(serve(path.join(__dirname, &quot;../dist&quot;)));
+
+router.get(&#39;/about&#39;, async (ctx, next) =&gt; {
+    ctx.type = &#39;json&#39;;
+    ctx.body = {
+        status: 0,
+        data: {
+            name: &quot;jaakko&quot;,
+            age: 21
+        }
+    };
+    await next();
+})  // 处理 get 请求 &#39;/about&#39;，返回 json 数据
+
+app.use(router.routes());   // 注意 router 使用方式
+app.listen(3000);
+console.log(`\nserver is start at port ${port}...\n`);
+</code></pre><p>我们现在引入了路由处理，新增了一个 ‘/about’ 的 get 请求路由。</p>
+<p>打开浏览器，输入 ‘localhost:3000/about’，我们可以看到我们刚才设置的 json 数据。</p>
+<h2 id="区分前后端路由"><a href="#区分前后端路由" class="headerlink" title="区分前后端路由"></a>区分前后端路由</h2><p>这部分内容，参考 <a href="https://molunerfinn.com/fe-be-router-render/" target="_blank" rel="noopener">浅谈前后端路由与前后端渲染</a>，这篇文章写的很详细。</p>
+<h3 id="路由歧义"><a href="#路由歧义" class="headerlink" title="路由歧义"></a>路由歧义</h3><p>想象这样一个场景：我们某个前端的页面的路由为 ‘/about’，我们还有一个 get 请求路由也为 ‘about’。那么当我们在浏览器地址栏输入 ‘localhost:3000/about’ 时，应该当成前端路由处理还是 get 请求处理？</p>
+<p>为了避免这种歧义，我们应该将前后端路由区分开。</p>
+<h3 id="前端路由与前端渲染"><a href="#前端路由与前端渲染" class="headerlink" title="前端路由与前端渲染"></a>前端路由与前端渲染</h3><p>此时，我们现在在浏览器输入 ‘localhost:3000/about’，会显示 not found。为什么呢？</p>
+<p>浏览器访问 ‘localhost:3000/info’ 会发送一个 get 请求，我们的服务器现在没有 ‘/info’ 这个路由，所以返回 not found。</p>
+<p>我们通过各种前端框架如 vue、react 的 router 库，去访问页面的路由（假定我们在 router 注册了这个页面，如 ‘localhost:3000/info’）时，为什么不会发送 get 请求呢。是因为它们的实现是通过 h5 history 实现的，可以往地址栏输入一个路径但是不真正地去访问它。这种情况是我们通过点击页面中某些按钮来跳转路由。</p>
+<p>如果我们直接在地址栏输入 ‘localhost:3000/info’，还是会返回 ‘not found’，原因正如上文提到，我们通过地址栏去访问这个地址，实际上是发送了一个 get 请求，而服务器 并没有对这个路由进行处理，故返回 ‘not found’。通过 h5 history 去改变路由，可以允许我们改变地址但不发送请求。</p>
+<h3 id="服务端解决"><a href="#服务端解决" class="headerlink" title="服务端解决"></a>服务端解决</h3><p>我们要解决以上问题要保证两点：</p>
+<ul>
+<li>前后端不要使用相同路由</li>
+<li>后端在路由无响应时，返回给前端静态页面 ‘index.html’</li>
+</ul>
+<p><strong>1. 前后端不要使用相同路由</strong><br>解决这个问题，我们的做法是：在向服务器请求数据的接口前统一加上 ‘/api’。<br>那我们刚才的 get 请求完整路径就应该为 ‘localhost:3000/api/about’</p>
+<p><strong>2. 后端路由无响应时返回 ‘index.html’</strong></p>
+<h4 id="server-js-3"><a href="#server-js-3" class="headerlink" title="server.js"></a>server.js</h4><pre><code>const Koa = require(&#39;koa&#39;);
+const path = require(&#39;path&#39;);
+const serve = require(&#39;koa-static&#39;);    // 静态资源操作
+const router = require(&#39;koa-router&#39;)(); // 注意 router 的引入方式
+const fs = require(&#39;fs&#39;);   // 文件操作
+const app = new Koa();
+
+const port = 3000;
+const main = serve(path.join(__dirname, &quot;../dist&quot;));
+
+app.use(main);
+
+app.use(async (ctx, next) =&gt; {
+    // 如果路由以 &#39;/api&#39; 开头，进入路由匹配; 否则返回 &#39;index.html&#39;
+    if ((/^\/api/.test(ctx.url))) {
+        return next();
+    }
+    ctx.type = &quot;html&quot;;
+    ctx.body = fs.createReadStream(path.join(__dirname, &quot;../dist&quot;, &quot;index.html&quot;));
+
+    await next();
+})
+
+router.get(&#39;/api/about&#39;, async (ctx, next) =&gt; {
+    ctx.type = &#39;json&#39;;
+    ctx.body = {
+        status: 0,
+        data: {
+            name: &quot;jaakko&quot;,
+            age: 21
+        }
+    };
+    await next();
+})
+
+app.use(router.routes());   // 注意 router 使用方式
+app.listen(3000);
+console.log(`\nserver is start at port ${port}...\n`);
+</code></pre><p>至此，一个简单的 nodejs-koa 服务器就完成了，功能方面还有一些缺陷，我们现在来优化一下。</p>
+<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><h3 id="koa-static"><a href="#koa-static" class="headerlink" title="koa-static"></a>koa-static</h3><p>koa-static 方法传入第二个参数可以设置参数，具体选项参考 <a href="https://github.com/koajs/static" target="_blank" rel="noopener">“这里”</a>。我在这里介绍两个我认为较有用的选项。</p>
+<p><strong>1. index</strong></p>
+<p>index 选项设置默认返回的文件名，该选项默认值为 “index.html”。上文中我有提到 koa-static 默认返回 “index.html”，就是由于这个设置项的默认值。假如我们希望返回文件名不为 “index.html” 的默认文件，可以手动设置该选项的值。</p>
+<p><strong>2. defer</strong><br>defer 选项设置是否延迟执行 koa-static 中间件。如果该选项为 true，服务器将不返回默认文件，而是先执行之后的中间件。</p>
+<p>在我们的服务器中，如果该选项设置为 true，此时再访问就会出错。因为请求会跳过 koa-static 中间件，优先执行 koa-static 之后的中间件。</p>
+<p>在 koa-static 之后的第一个中间件，就是下面这个中间件：</p>
+<pre><code>app.use(async (ctx, next) =&gt; {
+    // 如果路由以 &#39;/api&#39; 开头，进入路由匹配; 否则返回 &#39;index.html&#39;
+    if ((/^\/api/.test(ctx.url))) {
+        return next();
+    }
+    ctx.type = &quot;html&quot;;
+    ctx.body = fs.createReadStream(path.join(__dirname, &quot;../dist&quot;, &quot;index.html&quot;));
+
+    await next();
+})
+</code></pre><p>由上面这段代码我们可以看到，当路由不匹配后端路由（由 ‘/api’ 开头的路由）时，它会对所有的请求都返回 “index.html” 文件，这样肯定有问题。</p>
+<p>正确的做法是：判断一下浏览器请求的文件类型，并返回相应文件，而不是统一返回 “index.html”。</p>
+<h4 id="server-js-4"><a href="#server-js-4" class="headerlink" title="server.js"></a>server.js</h4><pre><code>const Koa = require(&#39;koa&#39;);
+const path = require(&#39;path&#39;);
+const serve = require(&#39;koa-static&#39;);    // 静态资源操作
+const router = require(&#39;koa-router&#39;)(); // 注意 router 的引入方式
+const fs = require(&#39;fs&#39;);   // 文件操作
+const app = new Koa();
+
+const port = 3000;
+app.use(require(&#39;koa-static&#39;)(&#39;dist&#39;, { index: &#39;index.html&#39;, defer: true }));
+
+app.use(async (ctx, next) =&gt; {
+    await next();
+})
+
+app.use(async (ctx, next) =&gt; {
+    // 如果路由以 &#39;/api&#39; 开头，进入路由匹配; 否则返回 &#39;index.html&#39;
+    if ((/^\/api/.test(ctx.url))) {
+        return next();
+    }
+    // 通过 ctx.url 我们可以获取浏览器请求的文件
+    const fileName = (/\.html|\.js$/.test(ctx.url));
+    // 如果浏览器请求的文件为 html、js 类型，就返回相应类型，否则返回 index.html
+    if (fileName) {
+        // 将路由前的 &#39;/&#39; 去掉，并返回 dist 目录下相应文件
+        ctx.body = fs.createReadStream(path.join(__dirname, &quot;../dist&quot;, ctx.url.replace(/^\//, &#39;&#39;)));
+    } else {
+        ctx.type = &quot;html&quot;;
+        ctx.body = fs.createReadStream(path.join(__dirname, &quot;../dist&quot;, &quot;index.html&quot;));
+
+        return next();
+    }
+
+})
+
+router.get(&#39;/api/about&#39;, async (ctx, next) =&gt; {
+    console.log(&#39;get in /about router&#39;);
+
+    ctx.type = &#39;json&#39;;
+    ctx.body = {
+        status: 0,
+        data: {
+            name: &quot;jaakko&quot;,
+            age: 21
+        }
+    };
+    await next();
+})
+
+app.use(router.routes());   // 注意 router 使用方式
+app.listen(3000);
+console.log(`\nserver is start at port ${port}...\n`);
+</code></pre><p>现在我们的服务器已经可以满足基本使用需求了，但是我们还可以进一步优化。</p>
+<p>我们现在实现了根据不同类型文件请求返回相应的文件，但是当我们的服务器支持多种文件资源请求（如还有 jpg, png, gif 等）时，我们需要手动判断是否为类型，是在有些不便，那么，还有没有更优雅的方式来实现呢？当然，有空再说…</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过搭建这个 nodejs 服务器，我对前后端交互过程有了更进一步了解，也终于弄清楚了前后端路由的区别。<br>学习是一个从渐悟到顿悟的过程，这个过程可能是痛苦的，但是一旦我们到达了顿悟的点，这一切的痛苦都是值得的。</p>
+
+  </div>
+  
+  <!-- jquery -->
+  <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  <!-- Link Gitalk 的支持文件  -->
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script>
+  <div id="gitalk-container"></div>
+
+  <script type="text/javascript">
+    // 添加 Gitalk 评论
+    var gitalk = new Gitalk({
+      // gitalk的主要参数
+      clientID: `04e1c6f9c3fdcd763c0a`,
+      clientSecret: `7840a92390d774fcf91fd2a16e1e595c1e6e1884`,
+      repo: `blog-comment`,
+      owner: 'isJaakko',
+      admin: ['isJaakko'],
+      id: md5(location.pathname),
+      createIssueManually: true,
+    });
+    gitalk.render('gitalk-container');
+
+    // 添加行号
+    window.addEventListener('load', function(){
+      $(".hljs").each(function() {
+        $(this).html("<ul><li>" + $(this).html().replace(/\n/g,"\n</li><li>") +"\n</li></ul>");
+      });
+    })
+  </script>
+
+</article>
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Archies</a></li>
+         
+          <li><a href="/categories/">Categories</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/links/">Links</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#准备"><span class="toc-number">1.</span> <span class="toc-text">准备</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#初始化工程"><span class="toc-number">1.1.</span> <span class="toc-text">初始化工程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装-koa"><span class="toc-number">1.2.</span> <span class="toc-text">安装 koa</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#搭建基本服务器"><span class="toc-number">2.</span> <span class="toc-text">搭建基本服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#server-js"><span class="toc-number">2.0.1.</span> <span class="toc-text">server.js</span></a></li></ol></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#静态资源访问"><span class="toc-number">3.</span> <span class="toc-text">静态资源访问</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装-koa-static"><span class="toc-number">3.1.</span> <span class="toc-text">安装 koa-static</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#server-js-1"><span class="toc-number">3.1.1.</span> <span class="toc-text">server.js</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#路由"><span class="toc-number">4.</span> <span class="toc-text">路由</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装"><span class="toc-number">4.1.</span> <span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#server-js-2"><span class="toc-number">4.1.1.</span> <span class="toc-text">server.js</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#区分前后端路由"><span class="toc-number">5.</span> <span class="toc-text">区分前后端路由</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#路由歧义"><span class="toc-number">5.1.</span> <span class="toc-text">路由歧义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#前端路由与前端渲染"><span class="toc-number">5.2.</span> <span class="toc-text">前端路由与前端渲染</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#服务端解决"><span class="toc-number">5.3.</span> <span class="toc-text">服务端解决</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#server-js-3"><span class="toc-number">5.3.1.</span> <span class="toc-text">server.js</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#优化"><span class="toc-number">6.</span> <span class="toc-text">优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#koa-static"><span class="toc-number">6.1.</span> <span class="toc-text">koa-static</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#server-js-4"><span class="toc-number">6.1.1.</span> <span class="toc-text">server.js</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">7.</span> <span class="toc-text">总结</span></a></li>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2018/12/19/使用 koa2 搭建服务器/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2018/12/19/使用 koa2 搭建服务器/&text=使用 koa2 搭建服务器"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2018/12/19/使用 koa2 搭建服务器/&title=使用 koa2 搭建服务器"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2018/12/19/使用 koa2 搭建服务器/&is_video=false&description=使用 koa2 搭建服务器"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=使用 koa2 搭建服务器&body=Check out this article: http://yoursite.com/2018/12/19/使用 koa2 搭建服务器/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2018/12/19/使用 koa2 搭建服务器/&title=使用 koa2 搭建服务器"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2018/12/19/使用 koa2 搭建服务器/&title=使用 koa2 搭建服务器"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2018/12/19/使用 koa2 搭建服务器/&title=使用 koa2 搭建服务器"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2018/12/19/使用 koa2 搭建服务器/&title=使用 koa2 搭建服务器"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2018/12/19/使用 koa2 搭建服务器/&name=使用 koa2 搭建服务器&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 Jaakko Yin
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Archies</a></li>
+         
+          <li><a href="/categories/">Categories</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/links/">Links</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-37473492-6', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+
+
