@@ -114,7 +114,9 @@
         <!-- Highlight.js -->
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/railscasts.min.css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
 
 <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
   <header>
@@ -364,7 +366,7 @@ console.log(`\nserver is start at port ${port}...\n`);
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过搭建这个 nodejs 服务器，我对前后端交互过程有了更进一步了解，也终于弄清楚了前后端路由的区别。<br>学习是一个从渐悟到顿悟的过程，这个过程可能是痛苦的，但是一旦我们到达了顿悟的点，这一切的痛苦都是值得的。</p>
 
   </div>
-  
+
   <!-- jquery -->
   <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
   <!-- Link Gitalk 的支持文件  -->
@@ -398,9 +400,9 @@ console.log(`\nserver is start at port ${port}...\n`);
     gitalk.render('gitalk-container');
 
     // 添加行号
-    window.addEventListener('load', function(){
-      $(".hljs").each(function() {
-        $(this).html("<ul><li>" + $(this).html().replace(/\n/g,"\n</li><li>") +"\n</li></ul>");
+    window.addEventListener('load', function () {
+      $(".hljs").each(function () {
+          $(this).html("<ul><li>" + $(this).html().replace(/\n(?=[^\n]*$)/g, "").replace(/\n/g, "\n</li><li>") + "\n</li></ul>");
       });
     })
   </script>

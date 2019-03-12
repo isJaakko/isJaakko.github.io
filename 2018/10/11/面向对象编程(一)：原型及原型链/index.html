@@ -117,7 +117,9 @@
         <!-- Highlight.js -->
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/railscasts.min.css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
 
 <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
   <header>
@@ -297,7 +299,7 @@ foo.toString();
 <p>&emsp;&emsp;Foo 是一个构造函数，f 是 Foo 的实例。<br>&emsp;&emsp;当访问 f 的属性时，如果它自身没有，就会去它的原型对象 f.__proto__ 上找，也就是构造函数的原型 (Foo.prototype) 。如果 Foo.prototype 上没有，会再去它的原型对象 (f.__proto__.__proto__) 上寻找，也就是它构造函数的原型 Object.prototype。如果找到了就返回，如果没有找到，就逐层往上寻找，一直到访问到 null 为止。</p>
 
   </div>
-  
+
   <!-- jquery -->
   <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
   <!-- Link Gitalk 的支持文件  -->
@@ -331,9 +333,9 @@ foo.toString();
     gitalk.render('gitalk-container');
 
     // 添加行号
-    window.addEventListener('load', function(){
-      $(".hljs").each(function() {
-        $(this).html("<ul><li>" + $(this).html().replace(/\n/g,"\n</li><li>") +"\n</li></ul>");
+    window.addEventListener('load', function () {
+      $(".hljs").each(function () {
+          $(this).html("<ul><li>" + $(this).html().replace(/\n(?=[^\n]*$)/g, "").replace(/\n/g, "\n</li><li>") + "\n</li></ul>");
       });
     })
   </script>

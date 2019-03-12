@@ -113,7 +113,9 @@
         <!-- Highlight.js -->
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/railscasts.min.css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
 
 <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
   <header>
@@ -225,7 +227,7 @@ queue([fun1, fun2, fun3], 2);   // 依次输出 2、1、3
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>碰到这个问题时，我第一时间没有理清思路，根本没有考虑到回调函数的作用，所以没有写出来。思考问题时，要考虑到问题的核心是什么，目的是什么，这样才能思路清晰、事半功倍。</p>
 
   </div>
-  
+
   <!-- jquery -->
   <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
   <!-- Link Gitalk 的支持文件  -->
@@ -259,9 +261,9 @@ queue([fun1, fun2, fun3], 2);   // 依次输出 2、1、3
     gitalk.render('gitalk-container');
 
     // 添加行号
-    window.addEventListener('load', function(){
-      $(".hljs").each(function() {
-        $(this).html("<ul><li>" + $(this).html().replace(/\n/g,"\n</li><li>") +"\n</li></ul>");
+    window.addEventListener('load', function () {
+      $(".hljs").each(function () {
+          $(this).html("<ul><li>" + $(this).html().replace(/\n(?=[^\n]*$)/g, "").replace(/\n/g, "\n</li><li>") + "\n</li></ul>");
       });
     })
   </script>

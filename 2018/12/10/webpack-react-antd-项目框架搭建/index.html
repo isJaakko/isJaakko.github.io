@@ -114,7 +114,9 @@
         <!-- Highlight.js -->
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/railscasts.min.css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
 
 <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
   <header>
@@ -574,7 +576,7 @@ module.exports = ({
 <pre><code>npm install --save @babel/runtime
 </code></pre>
   </div>
-  
+
   <!-- jquery -->
   <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
   <!-- Link Gitalk 的支持文件  -->
@@ -608,9 +610,9 @@ module.exports = ({
     gitalk.render('gitalk-container');
 
     // 添加行号
-    window.addEventListener('load', function(){
-      $(".hljs").each(function() {
-        $(this).html("<ul><li>" + $(this).html().replace(/\n/g,"\n</li><li>") +"\n</li></ul>");
+    window.addEventListener('load', function () {
+      $(".hljs").each(function () {
+          $(this).html("<ul><li>" + $(this).html().replace(/\n(?=[^\n]*$)/g, "").replace(/\n/g, "\n</li><li>") + "\n</li></ul>");
       });
     })
   </script>

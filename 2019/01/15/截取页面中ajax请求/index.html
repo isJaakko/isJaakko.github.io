@@ -114,7 +114,9 @@
         <!-- Highlight.js -->
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/railscasts.min.css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
 
 <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
   <header>
@@ -210,7 +212,7 @@ $.ajax = function(url, settings) {
 </code></pre><h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><p>我们拦截请求时，要遵守一个原则，那就是“不能破坏原来的逻辑”。所以，当我们重写了某个方法的时候，必须要在新的方法里去执行一次原来的方法。</p>
 
   </div>
-  
+
   <!-- jquery -->
   <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
   <!-- Link Gitalk 的支持文件  -->
@@ -244,9 +246,9 @@ $.ajax = function(url, settings) {
     gitalk.render('gitalk-container');
 
     // 添加行号
-    window.addEventListener('load', function(){
-      $(".hljs").each(function() {
-        $(this).html("<ul><li>" + $(this).html().replace(/\n/g,"\n</li><li>") +"\n</li></ul>");
+    window.addEventListener('load', function () {
+      $(".hljs").each(function () {
+          $(this).html("<ul><li>" + $(this).html().replace(/\n(?=[^\n]*$)/g, "").replace(/\n/g, "\n</li><li>") + "\n</li></ul>");
       });
     })
   </script>
