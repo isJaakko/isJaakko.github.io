@@ -14,7 +14,7 @@
 <meta property="og:description" content="Gitalk 介绍Gitalk 是一个基于 GitHub Issue 和 Preact 开发的评论插件。 特性 使用 GitHub 登录 支持多语言 [en, zh-CN, zh-TW, es-ES, fr, ru] 支持个人或组织 无干扰模式（设置 distractionFreeMode 为 true 开启） 快捷键提交评论 （cmd|ctrl + enter）  创建 OAuth Applic">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://s2.ax1x.com/2019/03/12/APh6QH.png">
-<meta property="og:updated_time" content="2019-03-12T07:23:08.738Z">
+<meta property="og:updated_time" content="2019-03-12T07:39:59.989Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="为Github博客添加Gitalk评论插件">
 <meta name="twitter:description" content="Gitalk 介绍Gitalk 是一个基于 GitHub Issue 和 Preact 开发的评论插件。 特性 使用 GitHub 登录 支持多语言 [en, zh-CN, zh-TW, es-ES, fr, ru] 支持个人或组织 无干扰模式（设置 distractionFreeMode 为 true 开启） 快捷键提交评论 （cmd|ctrl + enter）  创建 OAuth Applic">
@@ -203,13 +203,13 @@ gitalk:
 
     gitalk.render(&#39;gitalk-container&#39;);
 &lt;/script&gt;
-</code></pre><p>现在，打开你的博客，你就可以看到评论区了。<code>gitalk</code> 的界面非常简洁美观，很符合我的审美。</p>
-<p>唯一美中不足的是，每篇文章都需要管理员（刚才 <code>admin</code> 字段所填内容）手动打开初始化一下，才能使用评论。这就意味着，当你有多篇博客以后才开始用 <code>gitalk</code> 的话，之前的所有文章，你都需要手动打开一遍才能使用评论。</p>
+</code></pre><p>现在，打开你的博客，你就可以看到评论区了。</p>
+<p><code>gitalk</code> 的界面非常简洁美观，很符合我的审美需求。唯一美中不足的是，每篇文章都需要管理员（刚才 <code>admin</code> 字段所填内容）手动打开初始化一下，才能使用评论。这就意味着，当你有多篇博客以后才开始用 <code>gitalk</code> 的话，之前的所有文章，你都需要手动打开一遍才能使用评论。</p>
 <h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><ol>
 <li>应当为 <code>gitalk</code> 的 <code>id</code> 使用 <code>MD5</code> 加密生成唯一 <code>32</code> 位字符串，否则当文章名过长时，评论会初始化错误。</li>
 <li>文章名称中如果使用了中文字符，会导致登陆出错，所以避免在文章名中使用中文字符。</li>
 </ol>
-<p>至此，我们就大功告成了，快去叫你的朋友们来评论吧！</p>
+<p>至此，我们就大功告成了，快去叫上你的朋友们来评论吧！</p>
 <p>参考：</p>
 <ul>
 <li><a href="https://github.com/gitalk/gitalk" target="_blank" rel="noopener">gitalk-github</a></li>
