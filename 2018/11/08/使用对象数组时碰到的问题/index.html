@@ -217,7 +217,6 @@ console.log(result);
   <script type="text/javascript">
     // 添加 Gitalk 评论
     var gitalk = new Gitalk({
-      // gitalk的主要参数
       clientID: '04e1c6f9c3fdcd763c0a',
       clientSecret: '7840a92390d774fcf91fd2a16e1e595c1e6e1884',
       repo: 'blog-comment',
@@ -226,16 +225,6 @@ console.log(result);
       id: md5(location.pathname),
       createIssueManually: 'true',
     });
-    // var gitalk = new Gitalk({
-    //   // gitalk的主要参数
-    //   clientID: `04e1c6f9c3fdcd763c0a`,
-    //   clientSecret: `7840a92390d774fcf91fd2a16e1e595c1e6e1884`,
-    //   repo: `blog-comment`,
-    //   owner: 'isJaakko',
-    //   admin: ['isJaakko'],
-    //   id: md5(location.pathname),
-    //   createIssueManually: true,
-    // });
     gitalk.render('gitalk-container');
 
     // 添加行号

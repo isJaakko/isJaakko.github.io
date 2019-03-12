@@ -16,7 +16,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://s2.ax1x.com/2019/03/12/AP35GQ.md.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/03/12/AP3I2j.md.png">
-<meta property="og:updated_time" content="2019-03-12T08:02:18.425Z">
+<meta property="og:updated_time" content="2019-03-12T08:04:38.871Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Github Pages 博客绑定域名">
 <meta name="twitter:description" content="当我们拥有自己的博客以后，如果你跟我一样，不想再使用 .github.io 的域名，赶紧买一个属于你自己的域名吧。 点击 这里 查看官方添加域名教程 一、域名解析设置 登录云解析DNS控制台 点击域名，进入解析设置界面 点击添加纪录如上图：   记录类型：选择 A 或者 CNAME 主机记录：设置为 @ 解析线路：默认 记录值：如果记录值选了 A，这里填 github IP 地址；如果选择了CNA">
@@ -195,7 +195,6 @@
   <script type="text/javascript">
     // 添加 Gitalk 评论
     var gitalk = new Gitalk({
-      // gitalk的主要参数
       clientID: '04e1c6f9c3fdcd763c0a',
       clientSecret: '7840a92390d774fcf91fd2a16e1e595c1e6e1884',
       repo: 'blog-comment',
@@ -204,16 +203,6 @@
       id: md5(location.pathname),
       createIssueManually: 'true',
     });
-    // var gitalk = new Gitalk({
-    //   // gitalk的主要参数
-    //   clientID: `04e1c6f9c3fdcd763c0a`,
-    //   clientSecret: `7840a92390d774fcf91fd2a16e1e595c1e6e1884`,
-    //   repo: `blog-comment`,
-    //   owner: 'isJaakko',
-    //   admin: ['isJaakko'],
-    //   id: md5(location.pathname),
-    //   createIssueManually: true,
-    // });
     gitalk.render('gitalk-container');
 
     // 添加行号
