@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="当我们拥有自己的博客以后，如果你跟我一样，不想再使用 .github.io 的域名，赶紧买一个属于你自己的域名吧。 点击 这里 查看官方添加域名教程 一、域名解析设置 登录云解析DNS控制台 点击域名，进入解析设置界面 点击添加纪录如上图：   记录类型：选择 A 或者 CNAME 主机记录：设置为 @ 解析线路：默认 记录值：如果记录值选了 A，这里填 github IP 地址；如果选择了CNA">
+<meta name="keywords" content="hexo,blog">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Github Pages 博客绑定域名">
+<meta property="og:url" content="http://yoursite.com/2019/03/11/Github-Pages博客绑定域名/index.html">
+<meta property="og:site_name" content="Jaakko">
+<meta property="og:description" content="当我们拥有自己的博客以后，如果你跟我一样，不想再使用 .github.io 的域名，赶紧买一个属于你自己的域名吧。 点击 这里 查看官方添加域名教程 一、域名解析设置 登录云解析DNS控制台 点击域名，进入解析设置界面 点击添加纪录如上图：   记录类型：选择 A 或者 CNAME 主机记录：设置为 @ 解析线路：默认 记录值：如果记录值选了 A，这里填 github IP 地址；如果选择了CNA">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/12/AP35GQ.md.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/12/AP3I2j.md.png">
+<meta property="og:updated_time" content="2019-03-12T08:02:18.425Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Github Pages 博客绑定域名">
+<meta name="twitter:description" content="当我们拥有自己的博客以后，如果你跟我一样，不想再使用 .github.io 的域名，赶紧买一个属于你自己的域名吧。 点击 这里 查看官方添加域名教程 一、域名解析设置 登录云解析DNS控制台 点击域名，进入解析设置界面 点击添加纪录如上图：   记录类型：选择 A 或者 CNAME 主机记录：设置为 @ 解析线路：默认 记录值：如果记录值选了 A，这里填 github IP 地址；如果选择了CNA">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/03/12/AP35GQ.md.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/tech.png">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/tech.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/tech.png">
+          
+        
+    
+    <!-- title -->
+    <title>Github Pages 博客绑定域名</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Archies</a></li>
+         
+          <li><a href="/categories/">Categories</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/links/">Links</a></li>
+        
+      </ul>
+    </span>
+    <br>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2019/03/12/为Github博客添加Gitalk评论插件/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2019/03/10/(面试题)JS实现一个任务队列/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/03/11/Github-Pages博客绑定域名/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/03/11/Github-Pages博客绑定域名/&text=Github Pages 博客绑定域名"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/03/11/Github-Pages博客绑定域名/&title=Github Pages 博客绑定域名"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/03/11/Github-Pages博客绑定域名/&is_video=false&description=Github Pages 博客绑定域名"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Github Pages 博客绑定域名&body=Check out this article: http://yoursite.com/2019/03/11/Github-Pages博客绑定域名/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/03/11/Github-Pages博客绑定域名/&title=Github Pages 博客绑定域名"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/03/11/Github-Pages博客绑定域名/&title=Github Pages 博客绑定域名"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/03/11/Github-Pages博客绑定域名/&title=Github Pages 博客绑定域名"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/03/11/Github-Pages博客绑定域名/&title=Github Pages 博客绑定域名"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/03/11/Github-Pages博客绑定域名/&name=Github Pages 博客绑定域名&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、域名解析设置"><span class="toc-number">1.</span> <span class="toc-text">一、域名解析设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、Github-Pages-配置"><span class="toc-number">2.</span> <span class="toc-text">二、Github Pages 配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、使用-https"><span class="toc-number">3.</span> <span class="toc-text">三、使用 https</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <!-- Highlight.js -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/railscasts.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Github Pages 博客绑定域名
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">
+          
+          Jaakko
+          </span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2019-03-11T14:46:12.000Z" itemprop="datePublished">2019-03-11</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/blog/">blog</a>, <a class="tag-link" href="/tags/hexo/">hexo</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>当我们拥有自己的博客以后，如果你跟我一样，不想再使用 <code>.github.io</code> 的域名，赶紧买一个属于你自己的域名吧。</p>
+<p>点击 <a href="https://help.aliyun.com/document_detail/29716.html?spm=a2c4g.11186623.2.10.55564c07No65VS" target="_blank" rel="noopener">这里</a> 查看官方添加域名教程</p>
+<h2 id="一、域名解析设置"><a href="#一、域名解析设置" class="headerlink" title="一、域名解析设置"></a>一、域名解析设置</h2><ol>
+<li>登录<strong>云解析DNS控制台</strong></li>
+<li>点击域名，进入<strong>解析设置</strong>界面</li>
+<li>点击<strong>添加纪录</strong><br><img src="https://s2.ax1x.com/2019/03/12/AP35GQ.md.png" alt="添加域名解析"><br>如上图：</li>
+</ol>
+<ul>
+<li>记录类型：选择 <code>A</code> 或者 <code>CNAME</code></li>
+<li>主机记录：设置为 <code>@</code></li>
+<li>解析线路：默认</li>
+<li>记录值：如果记录值选了 <code>A</code>，这里填 <code>github</code> IP 地址；如果选择了<code>CNAME</code>，则填你的 <code>github</code> 博客地址，如我的为 <code>isjaakko.github.io</code></li>
+<li>TTL：域名解析记录在DNS服务器中的存留时间，详细介绍看<a href="http://hizip.net/index.php/archives/20/" target="_blank" rel="noopener">这里</a>，建议第一次解析先设置最小值，解析成功后，再设置为最大值。</li>
+</ul>
+<h2 id="二、Github-Pages-配置"><a href="#二、Github-Pages-配置" class="headerlink" title="二、Github Pages 配置"></a>二、<code>Github Pages</code> 配置</h2><p>在你的 <code>github.io</code> 仓库的 <code>Settings</code> 中找到 <code>Github Pages</code>，设置 <code>Custom domain</code>，填入你的域名，然后你的仓库根目录下就会自动生成一个 <code>CNAME</code> 文件，文件内容就是你的域名。</p>
+<p><img src="https://s2.ax1x.com/2019/03/12/AP3I2j.md.png" alt="设置 Custom domin"></p>
+<p>完成这一步后，你的博客就可以使用你自定义的域名访问了。但是，<code>DNS</code> 解析不是实时生效的，一般需要等待 <code>10</code> 分钟左右，方可解析成功。</p>
+<p>然后，等到你下一次写了新的博客，使用 <code>hexo d</code> 重新部署了博客后，你会发现，你的域名无法连接到你的博客了，这是怎么回事？</p>
+<p>现在，进入你的 <code>xxx.github.io</code> 仓库下，你会发现刚刚博客根目录下自动生成的 <code>CNAME</code> 文件丢失了。要解决这个问题，需要将 <code>CNAME</code> 放到你的博客源码的 <code>/source</code> 目录下，之后，<code>CNAME</code> 文件便不会丢失了。</p>
+<h2 id="三、使用-https"><a href="#三、使用-https" class="headerlink" title="三、使用 https"></a>三、使用 https</h2><p>还是在 <code>Github Pages</code> 设置里，勾选 <code>Enforce HTTPS</code>，便可以启用 <code>HTTPS</code> 服务了。</p>
+<p>如果在此之前已经使用了自定义域名，造成 <code>Enforce HTTPS</code> 无法勾选，那么把 <code>Custom domain</code> 中的值清空，点击 <code>Save</code> 保存后，再启用 <code>Enforce HTTPS</code> 就可以了。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://segmentfault.com/a/1190000011203711" target="_blank" rel="noopener">个人博客记 —— Github pages 绑定个人域名</a></li>
+<li><a href="https://likfe.com/2018/05/03/github-pages-custom-domains-support-https/" target="_blank" rel="noopener">GitHub Pages 对自定义域名支持 HTTPS</a></li>
+</ul>
+
+  </div>
+
+  <!-- jquery -->
+  <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  <!-- Link Gitalk 的支持文件  -->
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script>
+  <div id="gitalk-container"></div>
+
+  <script type="text/javascript">
+    // 添加 Gitalk 评论
+    var gitalk = new Gitalk({
+      // gitalk的主要参数
+      clientID: '04e1c6f9c3fdcd763c0a',
+      clientSecret: '7840a92390d774fcf91fd2a16e1e595c1e6e1884',
+      repo: 'blog-comment',
+      owner: 'isJaakko',
+      admin: 'isJaakko',
+      id: md5(location.pathname),
+      createIssueManually: 'true',
+    });
+    // var gitalk = new Gitalk({
+    //   // gitalk的主要参数
+    //   clientID: `04e1c6f9c3fdcd763c0a`,
+    //   clientSecret: `7840a92390d774fcf91fd2a16e1e595c1e6e1884`,
+    //   repo: `blog-comment`,
+    //   owner: 'isJaakko',
+    //   admin: ['isJaakko'],
+    //   id: md5(location.pathname),
+    //   createIssueManually: true,
+    // });
+    gitalk.render('gitalk-container');
+
+    // 添加行号
+    window.addEventListener('load', function () {
+      $(".hljs").each(function () {
+          $(this).html("<ul><li>" + $(this).html().replace(/\n(?=[^\n]*$)/g, "").replace(/\n/g, "\n</li><li>") + "\n</li></ul>");
+      });
+    })
+  </script>
+
+</article>
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Archies</a></li>
+         
+          <li><a href="/categories/">Categories</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/links/">Links</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、域名解析设置"><span class="toc-number">1.</span> <span class="toc-text">一、域名解析设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、Github-Pages-配置"><span class="toc-number">2.</span> <span class="toc-text">二、Github Pages 配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、使用-https"><span class="toc-number">3.</span> <span class="toc-text">三、使用 https</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2019/03/11/Github-Pages博客绑定域名/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2019/03/11/Github-Pages博客绑定域名/&text=Github Pages 博客绑定域名"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2019/03/11/Github-Pages博客绑定域名/&title=Github Pages 博客绑定域名"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2019/03/11/Github-Pages博客绑定域名/&is_video=false&description=Github Pages 博客绑定域名"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Github Pages 博客绑定域名&body=Check out this article: http://yoursite.com/2019/03/11/Github-Pages博客绑定域名/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2019/03/11/Github-Pages博客绑定域名/&title=Github Pages 博客绑定域名"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2019/03/11/Github-Pages博客绑定域名/&title=Github Pages 博客绑定域名"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2019/03/11/Github-Pages博客绑定域名/&title=Github Pages 博客绑定域名"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2019/03/11/Github-Pages博客绑定域名/&title=Github Pages 博客绑定域名"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2019/03/11/Github-Pages博客绑定域名/&name=Github Pages 博客绑定域名&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 Jaakko Yin
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Archies</a></li>
+         
+          <li><a href="/categories/">Categories</a></li>
+         
+          <li><a href="/tags/">Tags</a></li>
+         
+          <li><a href="/links/">Links</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-37473492-6', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+
+
