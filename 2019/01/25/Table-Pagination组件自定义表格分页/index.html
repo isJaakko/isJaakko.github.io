@@ -288,13 +288,13 @@ export default class TableDemo extends Component {
     // 添加 Gitalk 评论
     var gitalk = new Gitalk({
       // gitalk的主要参数
-      clientID: theme.gitalk.clientID,
-      clientSecret: theme.gitalk.clientSecret,
-      repo: theme.gitalk.repo,
-      owner: theme.gitalk.owner,
-      admin: theme.gitalk.admin,
+      clientID: '04e1c6f9c3fdcd763c0a',
+      clientSecret: '7840a92390d774fcf91fd2a16e1e595c1e6e1884',
+      repo: 'blog-comment',
+      owner: 'isJaakko',
+      admin: 'isJaakko',
       id: md5(location.pathname),
-      createIssueManually: theme.gitalk.createIssueManually,
+      createIssueManually: 'true',
     });
     // var gitalk = new Gitalk({
     //   // gitalk的主要参数
